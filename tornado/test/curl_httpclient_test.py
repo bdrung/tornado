@@ -3,13 +3,13 @@ from __future__ import absolute_import, division, print_function
 
 from hashlib import md5
 
-from tornado.escape import utf8
-from tornado.httpclient import HTTPRequest
-from tornado.stack_context import ExceptionStackContext
-from tornado.testing import AsyncHTTPTestCase
-from tornado.test import httpclient_test
-from tornado.test.util import unittest
-from tornado.web import Application, RequestHandler
+from tornado4.escape import utf8
+from tornado4.httpclient import HTTPRequest
+from tornado4.stack_context import ExceptionStackContext
+from tornado4.testing import AsyncHTTPTestCase
+from tornado4.test import httpclient_test
+from tornado4.test.util import unittest
+from tornado4.web import Application, RequestHandler
 
 
 try:
@@ -18,7 +18,7 @@ except ImportError:
     pycurl = None
 
 if pycurl is not None:
-    from tornado.curl_httpclient import CurlAsyncHTTPClient
+    from tornado4.curl_httpclient import CurlAsyncHTTPClient
 
 
 @unittest.skipIf(pycurl is None, "pycurl module not present")

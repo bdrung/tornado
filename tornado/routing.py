@@ -15,7 +15,7 @@
 """Flexible routing implementation.
 
 Tornado routes HTTP requests to appropriate handlers using `Router`
-class implementations. The `tornado.web.Application` class is a
+class implementations. The `tornado4.web.Application` class is a
 `Router` implementation and may be used directly, or the classes in
 this module may be used for additional flexibility. The `RuleRouter`
 class can match on more criteria than `.Application`, or the `Router`
@@ -180,11 +180,11 @@ from __future__ import absolute_import, division, print_function
 import re
 from functools import partial
 
-from tornado import httputil
-from tornado.httpserver import _CallableAdapter
-from tornado.escape import url_escape, url_unescape, utf8
-from tornado.log import app_log
-from tornado.util import basestring_type, import_object, re_unescape, unicode_type
+from tornado4 import httputil
+from tornado4.httpserver import _CallableAdapter
+from tornado4.escape import url_escape, url_unescape, utf8
+from tornado4.log import app_log
+from tornado4.util import basestring_type, import_object, re_unescape, unicode_type
 
 try:
     import typing  # noqa

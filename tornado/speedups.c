@@ -47,6 +47,6 @@ PyInit_speedups(void) {
 #else  // Python 2.x
 PyMODINIT_FUNC
 initspeedups(void) {
-    Py_InitModule("tornado.speedups", methods);
+    Py_InitModule("tornado4.speedups", methods);
 }
 #endif

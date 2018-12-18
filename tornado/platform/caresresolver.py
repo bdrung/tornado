@@ -2,9 +2,9 @@ from __future__ import absolute_import, division, print_function
 import pycares  # type: ignore
 import socket
 
-from tornado import gen
-from tornado.ioloop import IOLoop
-from tornado.netutil import Resolver, is_valid_ip
+from tornado4 import gen
+from tornado4.ioloop import IOLoop
+from tornado4.netutil import Resolver, is_valid_ip
 
 
 class CaresResolver(Resolver):
@@ -16,7 +16,7 @@ class CaresResolver(Resolver):
 
     c-ares fails to resolve some names when ``family`` is ``AF_UNSPEC``,
     so it is only recommended for use in ``AF_INET`` (i.e. IPv4).  This is
-    the default for ``tornado.simple_httpclient``, but other libraries
+    the default for ``tornado4.simple_httpclient``, but other libraries
     may default to ``AF_UNSPEC``.
 
     .. versionchanged:: 4.1

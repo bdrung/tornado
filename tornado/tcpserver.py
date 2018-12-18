@@ -21,13 +21,13 @@ import errno
 import os
 import socket
 
-from tornado import gen
-from tornado.log import app_log
-from tornado.ioloop import IOLoop
-from tornado.iostream import IOStream, SSLIOStream
-from tornado.netutil import bind_sockets, add_accept_handler, ssl_wrap_socket
-from tornado import process
-from tornado.util import errno_from_exception
+from tornado4 import gen
+from tornado4.log import app_log
+from tornado4.ioloop import IOLoop
+from tornado4.iostream import IOStream, SSLIOStream
+from tornado4.netutil import bind_sockets, add_accept_handler, ssl_wrap_socket
+from tornado4 import process
+from tornado4.util import errno_from_exception
 
 try:
     import ssl
@@ -42,9 +42,9 @@ class TCPServer(object):
     To use `TCPServer`, define a subclass which overrides the `handle_stream`
     method. For example, a simple echo server could be defined like this::
 
-      from tornado.tcpserver import TCPServer
-      from tornado.iostream import StreamClosedError
-      from tornado import gen
+      from tornado4.tcpserver import TCPServer
+      from tornado4.iostream import StreamClosedError
+      from tornado4 import gen
 
       class EchoServer(TCPServer):
           @gen.coroutine
@@ -88,17 +88,17 @@ class TCPServer(object):
     3. `add_sockets`: advanced multi-process::
 
             sockets = bind_sockets(8888)
-            tornado.process.fork_processes(0)
+            tornado4.process.fork_processes(0)
             server = TCPServer()
             server.add_sockets(sockets)
             IOLoop.current().start()
 
        The `add_sockets` interface is more complicated, but it can be
-       used with `tornado.process.fork_processes` to give you more
+       used with `tornado4.process.fork_processes` to give you more
        flexibility in when the fork happens.  `add_sockets` can
        also be used in single-process servers if you want to create
        your listening sockets in some way other than
-       `~tornado.netutil.bind_sockets`.
+       `~tornado4.netutil.bind_sockets`.
 
     .. versionadded:: 3.1
        The ``max_buffer_size`` argument.
@@ -146,9 +146,9 @@ class TCPServer(object):
         """Makes this server start accepting connections on the given sockets.
 
         The ``sockets`` parameter is a list of socket objects such as
-        those returned by `~tornado.netutil.bind_sockets`.
+        those returned by `~tornado4.netutil.bind_sockets`.
         `add_sockets` is typically used in combination with that
-        method and `tornado.process.fork_processes` to provide greater
+        method and `tornado4.process.fork_processes` to provide greater
         control over the initialization of a multi-process server.
         """
         if self.io_loop is None:
@@ -210,7 +210,7 @@ class TCPServer(object):
         between any server code.
 
         Note that multiple processes are not compatible with the autoreload
-        module (or the ``autoreload=True`` option to `tornado.web.Application`
+        module (or the ``autoreload=True`` option to `tornado4.web.Application`
         which defaults to True when ``debug=True``).
         When using multiple processes, no IOLoops can be created or
         referenced until after the call to ``TCPServer.start(n)``.

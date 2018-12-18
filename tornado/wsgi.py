@@ -20,7 +20,7 @@ WSGI is the Python standard for web servers, and allows for interoperability
 between Tornado and other Python web frameworks and servers.  This module
 provides WSGI support in two ways:
 
-* `WSGIAdapter` converts a `tornado.web.Application` to the WSGI application
+* `WSGIAdapter` converts a `tornado4.web.Application` to the WSGI application
   interface.  This is useful for running a Tornado app on another
   HTTP server, such as Google App Engine.  See the `WSGIAdapter` class
   documentation for limitations that apply.
@@ -33,15 +33,15 @@ from __future__ import absolute_import, division, print_function
 
 import sys
 from io import BytesIO
-import tornado
+import tornado4 as tornado
 
-from tornado.concurrent import Future
-from tornado import escape
-from tornado import httputil
-from tornado.log import access_log
-from tornado import web
-from tornado.escape import native_str
-from tornado.util import unicode_type, PY3
+from tornado4.concurrent import Future
+from tornado4 import escape
+from tornado4 import httputil
+from tornado4.log import access_log
+from tornado4 import web
+from tornado4.escape import native_str
+from tornado4.util import unicode_type, PY3
 
 
 if PY3:
@@ -51,7 +51,7 @@ else:
 
 # PEP 3333 specifies that WSGI on python 3 generally deals with byte strings
 # that are smuggled inside objects of type unicode (via the latin1 encoding).
-# These functions are like those in the tornado.escape module, but defined
+# These functions are like those in the tornado4.escape module, but defined
 # here to minimize the temptation to use them in non-wsgi contexts.
 if str is unicode_type:
     def to_wsgi_str(s):
@@ -72,7 +72,7 @@ else:
 
 
 class WSGIApplication(web.Application):
-    """A WSGI equivalent of `tornado.web.Application`.
+    """A WSGI equivalent of `tornado4.web.Application`.
 
     .. deprecated:: 4.0
 
@@ -151,23 +151,23 @@ class _WSGIRequestContext(object):
 
 
 class WSGIAdapter(object):
-    """Converts a `tornado.web.Application` instance into a WSGI application.
+    """Converts a `tornado4.web.Application` instance into a WSGI application.
 
     Example usage::
 
-        import tornado.web
-        import tornado.wsgi
+        import tornado4.web
+        import tornado4.wsgi
         import wsgiref.simple_server
 
-        class MainHandler(tornado.web.RequestHandler):
+        class MainHandler(tornado4.web.RequestHandler):
             def get(self):
                 self.write("Hello, world")
 
         if __name__ == "__main__":
-            application = tornado.web.Application([
+            application = tornado4.web.Application([
                 (r"/", MainHandler),
             ])
-            wsgi_app = tornado.wsgi.WSGIAdapter(application)
+            wsgi_app = tornado4.wsgi.WSGIAdapter(application)
             server = wsgiref.simple_server.make_server('', 8888, wsgi_app)
             server.serve_forever()
 
@@ -178,7 +178,7 @@ class WSGIAdapter(object):
 
     In WSGI mode asynchronous methods are not supported.  This means
     that it is not possible to use `.AsyncHTTPClient`, or the
-    `tornado.auth` or `tornado.websocket` modules.
+    `tornado4.auth` or `tornado4.websocket` modules.
 
     .. versionadded:: 4.0
     """
@@ -250,15 +250,15 @@ class WSGIContainer(object):
             start_response(status, response_headers)
             return ["Hello world!\n"]
 
-        container = tornado.wsgi.WSGIContainer(simple_app)
-        http_server = tornado.httpserver.HTTPServer(container)
+        container = tornado4.wsgi.WSGIContainer(simple_app)
+        http_server = tornado4.httpserver.HTTPServer(container)
         http_server.listen(8888)
-        tornado.ioloop.IOLoop.current().start()
+        tornado4.ioloop.IOLoop.current().start()
 
     This class is intended to let other frameworks (Django, web.py, etc)
     run on the Tornado HTTP server and I/O loop.
 
-    The `tornado.web.FallbackHandler` class is often useful for mixing
+    The `tornado4.web.FallbackHandler` class is often useful for mixing
     Tornado and WSGI apps in the same server.  See
     https://github.com/bdarnell/django-tornado-demo for a complete example.
     """
@@ -307,7 +307,7 @@ class WSGIContainer(object):
 
     @staticmethod
     def environ(request):
-        """Converts a `tornado.httputil.HTTPServerRequest` to a WSGI environment.
+        """Converts a `tornado4.httputil.HTTPServerRequest` to a WSGI environment.
         """
         hostport = request.host.split(":")
         if len(hostport) == 2:

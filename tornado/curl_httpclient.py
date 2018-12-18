@@ -26,14 +26,14 @@ import threading
 import time
 from io import BytesIO
 
-from tornado import httputil
-from tornado import ioloop
-from tornado import stack_context
+from tornado4 import httputil
+from tornado4 import ioloop
+from tornado4 import stack_context
 
-from tornado.escape import utf8, native_str
-from tornado.httpclient import HTTPResponse, HTTPError, AsyncHTTPClient, main
+from tornado4.escape import utf8, native_str
+from tornado4.httpclient import HTTPResponse, HTTPError, AsyncHTTPClient, main
 
-curl_log = logging.getLogger('tornado.curl_httpclient')
+curl_log = logging.getLogger('tornado4.curl_httpclient')
 
 
 class CurlAsyncHTTPClient(AsyncHTTPClient):

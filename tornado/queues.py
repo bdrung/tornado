@@ -27,9 +27,9 @@ from __future__ import absolute_import, division, print_function
 import collections
 import heapq
 
-from tornado import gen, ioloop
-from tornado.concurrent import Future
-from tornado.locks import Event
+from tornado4 import gen, ioloop
+from tornado4.concurrent import Future
+from tornado4.locks import Event
 
 __all__ = ['Queue', 'PriorityQueue', 'LifoQueue', 'QueueFull', 'QueueEmpty']
 
@@ -69,9 +69,9 @@ class Queue(object):
 
     .. testcode::
 
-        from tornado import gen
-        from tornado.ioloop import IOLoop
-        from tornado.queues import Queue
+        from tornado4 import gen
+        from tornado4.ioloop import IOLoop
+        from tornado4.queues import Queue
 
         q = Queue(maxsize=2)
 
@@ -166,7 +166,7 @@ class Queue(object):
     def put(self, item, timeout=None):
         """Put an item into the queue, perhaps waiting until there is room.
 
-        Returns a Future, which raises `tornado.gen.TimeoutError` after a
+        Returns a Future, which raises `tornado4.gen.TimeoutError` after a
         timeout.
         """
         try:
@@ -199,7 +199,7 @@ class Queue(object):
         """Remove and return an item from the queue.
 
         Returns a Future which resolves once an item is available, or raises
-        `tornado.gen.TimeoutError` after a timeout.
+        `tornado4.gen.TimeoutError` after a timeout.
         """
         future = Future()
         try:
@@ -248,7 +248,7 @@ class Queue(object):
     def join(self, timeout=None):
         """Block until all items in the queue are processed.
 
-        Returns a Future, which raises `tornado.gen.TimeoutError` after a
+        Returns a Future, which raises `tornado4.gen.TimeoutError` after a
         timeout.
         """
         return self._finished.wait(timeout)
@@ -307,7 +307,7 @@ class PriorityQueue(Queue):
 
     .. testcode::
 
-        from tornado.queues import PriorityQueue
+        from tornado4.queues import PriorityQueue
 
         q = PriorityQueue()
         q.put((1, 'medium-priority item'))
@@ -339,7 +339,7 @@ class LifoQueue(Queue):
 
     .. testcode::
 
-        from tornado.queues import LifoQueue
+        from tornado4.queues import LifoQueue
 
         q = LifoQueue()
         q.put(3)

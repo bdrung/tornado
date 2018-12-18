@@ -21,12 +21,12 @@ from __future__ import absolute_import, division, print_function
 import functools
 import socket
 
-from tornado.concurrent import Future
-from tornado.ioloop import IOLoop
-from tornado.iostream import IOStream
-from tornado import gen
-from tornado.netutil import Resolver
-from tornado.platform.auto import set_close_exec
+from tornado4.concurrent import Future
+from tornado4.ioloop import IOLoop
+from tornado4.iostream import IOStream
+from tornado4 import gen
+from tornado4.netutil import Resolver
+from tornado4.platform.auto import set_close_exec
 
 _INITIAL_CONNECT_TIMEOUT = 0.3
 

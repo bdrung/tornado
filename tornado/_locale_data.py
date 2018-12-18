@@ -15,7 +15,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-"""Data used by the tornado.locale module."""
+"""Data used by the tornado4.locale module."""
 
 from __future__ import absolute_import, division, print_function
 

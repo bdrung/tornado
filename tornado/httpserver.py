@@ -18,26 +18,26 @@
 
 Typical applications have little direct interaction with the `HTTPServer`
 class except to start a server at the beginning of the process
-(and even that is often done indirectly via `tornado.web.Application.listen`).
+(and even that is often done indirectly via `tornado4.web.Application.listen`).
 
 .. versionchanged:: 4.0
 
    The ``HTTPRequest`` class that used to live in this module has been moved
-   to `tornado.httputil.HTTPServerRequest`.  The old name remains as an alias.
+   to `tornado4.httputil.HTTPServerRequest`.  The old name remains as an alias.
 """
 
 from __future__ import absolute_import, division, print_function
 
 import socket
 
-from tornado.escape import native_str
-from tornado.http1connection import HTTP1ServerConnection, HTTP1ConnectionParameters
-from tornado import gen
-from tornado import httputil
-from tornado import iostream
-from tornado import netutil
-from tornado.tcpserver import TCPServer
-from tornado.util import Configurable
+from tornado4.escape import native_str
+from tornado4.http1connection import HTTP1ServerConnection, HTTP1ConnectionParameters
+from tornado4 import gen
+from tornado4 import httputil
+from tornado4 import iostream
+from tornado4 import netutil
+from tornado4.tcpserver import TCPServer
+from tornado4.util import Configurable
 
 
 class HTTPServer(TCPServer, Configurable,
@@ -47,7 +47,7 @@ class HTTPServer(TCPServer, Configurable,
     A server is defined by a subclass of `.HTTPServerConnectionDelegate`,
     or, for backwards compatibility, a callback that takes an
     `.HTTPServerRequest` as an argument. The delegate is usually a
-    `tornado.web.Application`.
+    `tornado4.web.Application`.
 
     `HTTPServer` supports keep-alive connections by default
     (automatically for HTTP/1.1, or for HTTP/1.0 when the client
@@ -80,18 +80,18 @@ class HTTPServer(TCPServer, Configurable,
        HTTPServer(applicaton, ssl_options=ssl_ctx)
 
     `HTTPServer` initialization follows one of three patterns (the
-    initialization methods are defined on `tornado.tcpserver.TCPServer`):
+    initialization methods are defined on `tornado4.tcpserver.TCPServer`):
 
-    1. `~tornado.tcpserver.TCPServer.listen`: simple single-process::
+    1. `~tornado4.tcpserver.TCPServer.listen`: simple single-process::
 
             server = HTTPServer(app)
             server.listen(8888)
             IOLoop.current().start()
 
-       In many cases, `tornado.web.Application.listen` can be used to avoid
+       In many cases, `tornado4.web.Application.listen` can be used to avoid
        the need to explicitly create the `HTTPServer`.
 
-    2. `~tornado.tcpserver.TCPServer.bind`/`~tornado.tcpserver.TCPServer.start`:
+    2. `~tornado4.tcpserver.TCPServer.bind`/`~tornado4.tcpserver.TCPServer.start`:
        simple multi-process::
 
             server = HTTPServer(app)
@@ -103,20 +103,20 @@ class HTTPServer(TCPServer, Configurable,
        to the `HTTPServer` constructor.  `~.TCPServer.start` will always start
        the server on the default singleton `.IOLoop`.
 
-    3. `~tornado.tcpserver.TCPServer.add_sockets`: advanced multi-process::
+    3. `~tornado4.tcpserver.TCPServer.add_sockets`: advanced multi-process::
 
-            sockets = tornado.netutil.bind_sockets(8888)
-            tornado.process.fork_processes(0)
+            sockets = tornado4.netutil.bind_sockets(8888)
+            tornado4.process.fork_processes(0)
             server = HTTPServer(app)
             server.add_sockets(sockets)
             IOLoop.current().start()
 
        The `~.TCPServer.add_sockets` interface is more complicated,
-       but it can be used with `tornado.process.fork_processes` to
+       but it can be used with `tornado4.process.fork_processes` to
        give you more flexibility in when the fork happens.
        `~.TCPServer.add_sockets` can also be used in single-process
        servers if you want to create your listening sockets in some
-       way other than `tornado.netutil.bind_sockets`.
+       way other than `tornado4.netutil.bind_sockets`.
 
     .. versionchanged:: 4.0
        Added ``decompress_request``, ``chunk_size``, ``max_header_size``,
@@ -130,7 +130,7 @@ class HTTPServer(TCPServer, Configurable,
        documentation) instead of one ``(request_conn)``.
 
     .. versionchanged:: 4.2
-       `HTTPServer` is now a subclass of `tornado.util.Configurable`.
+       `HTTPServer` is now a subclass of `tornado4.util.Configurable`.
 
     .. versionchanged:: 4.5
        Added the ``trusted_downstream`` argument.

@@ -25,11 +25,11 @@ import sys
 import tempfile
 import warnings
 
-from tornado.escape import utf8
-from tornado.log import LogFormatter, define_logging_options, enable_pretty_logging
-from tornado.options import OptionParser
-from tornado.test.util import unittest
-from tornado.util import basestring_type
+from tornado4.escape import utf8
+from tornado4.log import LogFormatter, define_logging_options, enable_pretty_logging
+from tornado4.options import OptionParser
+from tornado4.test.util import unittest
+from tornado4.util import basestring_type
 
 
 @contextlib.contextmanager
@@ -137,7 +137,7 @@ class EnablePrettyLoggingTest(unittest.TestCase):
         super(EnablePrettyLoggingTest, self).setUp()
         self.options = OptionParser()
         define_logging_options(self.options)
-        self.logger = logging.Logger('tornado.test.log_test.EnablePrettyLoggingTest')
+        self.logger = logging.Logger('tornado4.test.log_test.EnablePrettyLoggingTest')
         self.logger.propagate = False
 
     def test_log_file(self):
@@ -202,7 +202,7 @@ class LoggingOptionTest(unittest.TestCase):
         # logging module by default, but Tornado turns it on by default
         # so it is the easiest way to tell whether tornado's logging hooks
         # ran.
-        IMPORT = 'from tornado.options import options, parse_command_line'
+        IMPORT = 'from tornado4.options import options, parse_command_line'
         LOG_INFO = 'import logging; logging.info("hello")'
         program = ';'.join([IMPORT, statement, LOG_INFO])
         proc = subprocess.Popen(

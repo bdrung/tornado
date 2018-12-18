@@ -1,16 +1,16 @@
 from __future__ import absolute_import, division, print_function
-from tornado.concurrent import Future
-from tornado import gen
-from tornado import netutil
-from tornado.iostream import IOStream, SSLIOStream, PipeIOStream, StreamClosedError
-from tornado.httputil import HTTPHeaders
-from tornado.log import gen_log, app_log
-from tornado.netutil import ssl_wrap_socket
-from tornado.stack_context import NullContext
-from tornado.tcpserver import TCPServer
-from tornado.testing import AsyncHTTPTestCase, AsyncHTTPSTestCase, AsyncTestCase, bind_unused_port, ExpectLog, gen_test
-from tornado.test.util import unittest, skipIfNonUnix, refusing_port, skipPypy3V58
-from tornado.web import RequestHandler, Application
+from tornado4.concurrent import Future
+from tornado4 import gen
+from tornado4 import netutil
+from tornado4.iostream import IOStream, SSLIOStream, PipeIOStream, StreamClosedError
+from tornado4.httputil import HTTPHeaders
+from tornado4.log import gen_log, app_log
+from tornado4.netutil import ssl_wrap_socket
+from tornado4.stack_context import NullContext
+from tornado4.tcpserver import TCPServer
+from tornado4.testing import AsyncHTTPTestCase, AsyncHTTPSTestCase, AsyncTestCase, bind_unused_port, ExpectLog, gen_test
+from tornado4.test.util import unittest, skipIfNonUnix, refusing_port, skipPypy3V58
+from tornado4.web import RequestHandler, Application
 import errno
 import logging
 import os
@@ -461,7 +461,7 @@ class TestIOStreamMixin(object):
     def test_read_until_close_with_error(self):
         server, client = self.make_iostream_pair()
         try:
-            with mock.patch('tornado.iostream.BaseIOStream._try_inline_read',
+            with mock.patch('tornado4.iostream.BaseIOStream._try_inline_read',
                             side_effect=IOError('boom')):
                 with self.assertRaisesRegexp(IOError, 'boom'):
                     client.read_until_close(self.stop)

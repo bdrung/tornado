@@ -2,13 +2,13 @@ from __future__ import absolute_import, division, print_function
 
 import socket
 
-from tornado import gen
-from tornado.iostream import IOStream
-from tornado.log import app_log
-from tornado.stack_context import NullContext
-from tornado.tcpserver import TCPServer
-from tornado.test.util import skipBefore35, exec_test
-from tornado.testing import AsyncTestCase, ExpectLog, bind_unused_port, gen_test
+from tornado4 import gen
+from tornado4.iostream import IOStream
+from tornado4.log import app_log
+from tornado4.stack_context import NullContext
+from tornado4.tcpserver import TCPServer
+from tornado4.test.util import skipBefore35, exec_test
+from tornado4.testing import AsyncTestCase, ExpectLog, bind_unused_port, gen_test
 
 
 class TCPServerTest(AsyncTestCase):

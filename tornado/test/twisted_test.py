@@ -28,17 +28,17 @@ import tempfile
 import threading
 import warnings
 
-from tornado.escape import utf8
-from tornado import gen
-from tornado.httpclient import AsyncHTTPClient
-from tornado.httpserver import HTTPServer
-from tornado.ioloop import IOLoop
-from tornado.platform.auto import set_close_exec
-from tornado.platform.select import SelectIOLoop
-from tornado.testing import bind_unused_port
-from tornado.test.util import unittest
-from tornado.util import import_object, PY3
-from tornado.web import RequestHandler, Application
+from tornado4.escape import utf8
+from tornado4 import gen
+from tornado4.httpclient import AsyncHTTPClient
+from tornado4.httpserver import HTTPServer
+from tornado4.ioloop import IOLoop
+from tornado4.platform.auto import set_close_exec
+from tornado4.platform.select import SelectIOLoop
+from tornado4.testing import bind_unused_port
+from tornado4.test.util import unittest
+from tornado4.util import import_object, PY3
+from tornado4.web import RequestHandler, Application
 
 try:
     import fcntl
@@ -46,7 +46,7 @@ try:
     from twisted.internet.interfaces import IReadDescriptor, IWriteDescriptor  # type: ignore
     from twisted.internet.protocol import Protocol  # type: ignore
     from twisted.python import log  # type: ignore
-    from tornado.platform.twisted import TornadoReactor, TwistedIOLoop
+    from tornado4.platform.twisted import TornadoReactor, TwistedIOLoop
     from zope.interface import implementer  # type: ignore
     have_twisted = True
 except ImportError:
@@ -617,7 +617,7 @@ if have_twisted:
 
         def make_test_subclass(test_class):
             class TornadoTest(test_class):  # type: ignore
-                _reactors = ["tornado.platform.twisted._TestReactor"]
+                _reactors = ["tornado4.platform.twisted._TestReactor"]
 
                 def setUp(self):
                     # Twisted's tests expect to be run from a temporary

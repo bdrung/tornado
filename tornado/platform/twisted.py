@@ -42,15 +42,15 @@ import twisted.names.resolve  # type: ignore
 
 from zope.interface import implementer  # type: ignore
 
-from tornado.concurrent import Future
-from tornado.escape import utf8
-from tornado import gen
-import tornado.ioloop
-from tornado.log import app_log
-from tornado.netutil import Resolver
-from tornado.stack_context import NullContext, wrap
-from tornado.ioloop import IOLoop
-from tornado.util import timedelta_to_seconds
+from tornado4.concurrent import Future
+from tornado4.escape import utf8
+from tornado4 import gen
+import tornado4.ioloop
+from tornado4.log import app_log
+from tornado4.netutil import Resolver
+from tornado4.stack_context import NullContext, wrap
+from tornado4.ioloop import IOLoop
+from tornado4.util import timedelta_to_seconds
 
 
 @implementer(IDelayedCall)
@@ -104,15 +104,15 @@ class TornadoReactor(PosixReactorBase):
     the Tornado IOLoop.  To use it, simply call `install` at the beginning
     of the application::
 
-        import tornado.platform.twisted
-        tornado.platform.twisted.install()
+        import tornado4.platform.twisted
+        tornado4.platform.twisted.install()
         from twisted.internet import reactor
 
     When the app is ready to start, call ``IOLoop.current().start()``
     instead of ``reactor.run()``.
 
     It is also possible to create a non-global reactor by calling
-    ``tornado.platform.twisted.TornadoReactor(io_loop)``.  However, if
+    ``tornado4.platform.twisted.TornadoReactor(io_loop)``.  However, if
     the `.IOLoop` and reactor are to be short-lived (such as those used in
     unit tests), additional cleanup may be required.  Specifically, it is
     recommended to call::
@@ -127,7 +127,7 @@ class TornadoReactor(PosixReactorBase):
     """
     def __init__(self, io_loop=None):
         if not io_loop:
-            io_loop = tornado.ioloop.IOLoop.current()
+            io_loop = tornado4.ioloop.IOLoop.current()
         self._io_loop = io_loop
         self._readers = {}  # map of reader objects to fd
         self._writers = {}  # map of writer objects to fd
@@ -351,7 +351,7 @@ def install(io_loop=None):
 
     """
     if not io_loop:
-        io_loop = tornado.ioloop.IOLoop.current()
+        io_loop = tornado4.ioloop.IOLoop.current()
     reactor = TornadoReactor(io_loop)
     from twisted.internet.main import installReactor  # type: ignore
     installReactor(reactor)
@@ -373,28 +373,28 @@ class _FD(object):
 
     def doRead(self):
         if not self.lost:
-            self.handler(self.fileobj, tornado.ioloop.IOLoop.READ)
+            self.handler(self.fileobj, tornado4.ioloop.IOLoop.READ)
 
     def doWrite(self):
         if not self.lost:
-            self.handler(self.fileobj, tornado.ioloop.IOLoop.WRITE)
+            self.handler(self.fileobj, tornado4.ioloop.IOLoop.WRITE)
 
     def connectionLost(self, reason):
         if not self.lost:
-            self.handler(self.fileobj, tornado.ioloop.IOLoop.ERROR)
+            self.handler(self.fileobj, tornado4.ioloop.IOLoop.ERROR)
             self.lost = True
 
     def logPrefix(self):
         return ''
 
 
-class TwistedIOLoop(tornado.ioloop.IOLoop):
+class TwistedIOLoop(tornado4.ioloop.IOLoop):
     """IOLoop implementation that runs on Twisted.
 
     `TwistedIOLoop` implements the Tornado IOLoop interface on top of
     the Twisted reactor. Recommended usage::
 
-        from tornado.platform.twisted import TwistedIOLoop
+        from tornado4.platform.twisted import TwistedIOLoop
         from twisted.internet import reactor
         TwistedIOLoop().install()
         # Set up your tornado application as usual using `IOLoop.instance`
@@ -404,11 +404,11 @@ class TwistedIOLoop(tornado.ioloop.IOLoop):
     ``TwistedIOLoops`` in the same process, you must pass a unique reactor
     when constructing each one.
 
-    Not compatible with `tornado.process.Subprocess.set_exit_callback`
+    Not compatible with `tornado4.process.Subprocess.set_exit_callback`
     because the ``SIGCHLD`` handlers used by Tornado and Twisted conflict
     with each other.
 
-    See also :meth:`tornado.ioloop.IOLoop.install` for general notes on
+    See also :meth:`tornado4.ioloop.IOLoop.install` for general notes on
     installing alternative IOLoops.
     """
     def initialize(self, reactor=None, **kwargs):
@@ -433,16 +433,16 @@ class TwistedIOLoop(tornado.ioloop.IOLoop):
             raise ValueError('fd %s added twice' % fd)
         fd, fileobj = self.split_fd(fd)
         self.fds[fd] = _FD(fd, fileobj, wrap(handler))
-        if events & tornado.ioloop.IOLoop.READ:
+        if events & tornado4.ioloop.IOLoop.READ:
             self.fds[fd].reading = True
             self.reactor.addReader(self.fds[fd])
-        if events & tornado.ioloop.IOLoop.WRITE:
+        if events & tornado4.ioloop.IOLoop.WRITE:
             self.fds[fd].writing = True
             self.reactor.addWriter(self.fds[fd])
 
     def update_handler(self, fd, events):
         fd, fileobj = self.split_fd(fd)
-        if events & tornado.ioloop.IOLoop.READ:
+        if events & tornado4.ioloop.IOLoop.READ:
             if not self.fds[fd].reading:
                 self.fds[fd].reading = True
                 self.reactor.addReader(self.fds[fd])
@@ -450,7 +450,7 @@ class TwistedIOLoop(tornado.ioloop.IOLoop):
             if self.fds[fd].reading:
                 self.fds[fd].reading = False
                 self.reactor.removeReader(self.fds[fd])
-        if events & tornado.ioloop.IOLoop.WRITE:
+        if events & tornado4.ioloop.IOLoop.WRITE:
             if not self.fds[fd].writing:
                 self.fds[fd].writing = True
                 self.reactor.addWriter(self.fds[fd])
@@ -518,8 +518,8 @@ class TwistedResolver(Resolver):
     This is a non-blocking and non-threaded resolver.  It is
     recommended only when threads cannot be used, since it has
     limitations compared to the standard ``getaddrinfo``-based
-    `~tornado.netutil.Resolver` and
-    `~tornado.netutil.ThreadedResolver`.  Specifically, it returns at
+    `~tornado4.netutil.Resolver` and
+    `~tornado4.netutil.ThreadedResolver`.  Specifically, it returns at
     most one result, and arguments other than ``host`` and ``family``
     are ignored.  It may fail to resolve when ``family`` is not
     ``socket.AF_UNSPEC``.
@@ -533,7 +533,7 @@ class TwistedResolver(Resolver):
         self.io_loop = io_loop or IOLoop.current()
         # partial copy of twisted.names.client.createResolver, which doesn't
         # allow for a reactor to be passed in.
-        self.reactor = tornado.platform.twisted.TornadoReactor(io_loop)
+        self.reactor = tornado4.platform.twisted.TornadoReactor(io_loop)
 
         host_resolver = twisted.names.hosts.Resolver('/etc/hosts')
         cache_resolver = twisted.names.cache.CacheResolver(reactor=self.reactor)

@@ -11,20 +11,20 @@ import socket
 import ssl
 import sys
 
-from tornado.escape import to_unicode
-from tornado import gen
-from tornado.httpclient import AsyncHTTPClient
-from tornado.httputil import HTTPHeaders, ResponseStartLine
-from tornado.ioloop import IOLoop
-from tornado.log import gen_log
-from tornado.concurrent import Future
-from tornado.netutil import Resolver, bind_sockets
-from tornado.simple_httpclient import SimpleAsyncHTTPClient
-from tornado.test.httpclient_test import ChunkHandler, CountdownHandler, HelloWorldHandler, RedirectHandler
-from tornado.test import httpclient_test
-from tornado.testing import AsyncHTTPTestCase, AsyncHTTPSTestCase, AsyncTestCase, ExpectLog
-from tornado.test.util import skipOnTravis, skipIfNoIPv6, refusing_port, unittest, skipBefore35, exec_test
-from tornado.web import RequestHandler, Application, asynchronous, url, stream_request_body
+from tornado4.escape import to_unicode
+from tornado4 import gen
+from tornado4.httpclient import AsyncHTTPClient
+from tornado4.httputil import HTTPHeaders, ResponseStartLine
+from tornado4.ioloop import IOLoop
+from tornado4.log import gen_log
+from tornado4.concurrent import Future
+from tornado4.netutil import Resolver, bind_sockets
+from tornado4.simple_httpclient import SimpleAsyncHTTPClient
+from tornado4.test.httpclient_test import ChunkHandler, CountdownHandler, HelloWorldHandler, RedirectHandler
+from tornado4.test import httpclient_test
+from tornado4.testing import AsyncHTTPTestCase, AsyncHTTPSTestCase, AsyncTestCase, ExpectLog
+from tornado4.test.util import skipOnTravis, skipIfNoIPv6, refusing_port, unittest, skipBefore35, exec_test
+from tornado4.web import RequestHandler, Application, asynchronous, url, stream_request_body
 
 
 class SimpleHTTPClientCommonTestCase(httpclient_test.HTTPClientCommonTestCase):

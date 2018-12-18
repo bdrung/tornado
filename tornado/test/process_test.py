@@ -7,15 +7,15 @@ import os
 import signal
 import subprocess
 import sys
-from tornado.httpclient import HTTPClient, HTTPError
-from tornado.httpserver import HTTPServer
-from tornado.ioloop import IOLoop
-from tornado.log import gen_log
-from tornado.process import fork_processes, task_id, Subprocess
-from tornado.simple_httpclient import SimpleAsyncHTTPClient
-from tornado.testing import bind_unused_port, ExpectLog, AsyncTestCase, gen_test
-from tornado.test.util import unittest, skipIfNonUnix
-from tornado.web import RequestHandler, Application
+from tornado4.httpclient import HTTPClient, HTTPError
+from tornado4.httpserver import HTTPServer
+from tornado4.ioloop import IOLoop
+from tornado4.log import gen_log
+from tornado4.process import fork_processes, task_id, Subprocess
+from tornado4.simple_httpclient import SimpleAsyncHTTPClient
+from tornado4.testing import bind_unused_port, ExpectLog, AsyncTestCase, gen_test
+from tornado4.test.util import unittest, skipIfNonUnix
+from tornado4.web import RequestHandler, Application
 
 
 def skip_if_twisted():

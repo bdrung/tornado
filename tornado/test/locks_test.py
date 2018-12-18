@@ -14,10 +14,10 @@
 from __future__ import absolute_import, division, print_function
 from datetime import timedelta
 
-from tornado import gen, locks
-from tornado.gen import TimeoutError
-from tornado.testing import gen_test, AsyncTestCase
-from tornado.test.util import unittest, skipBefore35, exec_test
+from tornado4 import gen, locks
+from tornado4.gen import TimeoutError
+from tornado4.testing import gen_test, AsyncTestCase
+from tornado4.test.util import unittest, skipBefore35, exec_test
 
 
 class ConditionTest(AsyncTestCase):

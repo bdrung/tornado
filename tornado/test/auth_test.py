@@ -5,14 +5,14 @@
 
 
 from __future__ import absolute_import, division, print_function
-from tornado.auth import OpenIdMixin, OAuthMixin, OAuth2Mixin, TwitterMixin, AuthError, GoogleOAuth2Mixin, FacebookGraphMixin
-from tornado.concurrent import Future
-from tornado.escape import json_decode
-from tornado import gen
-from tornado.httputil import url_concat
-from tornado.log import gen_log
-from tornado.testing import AsyncHTTPTestCase, ExpectLog
-from tornado.web import RequestHandler, Application, asynchronous, HTTPError
+from tornado4.auth import OpenIdMixin, OAuthMixin, OAuth2Mixin, TwitterMixin, AuthError, GoogleOAuth2Mixin, FacebookGraphMixin
+from tornado4.concurrent import Future
+from tornado4.escape import json_decode
+from tornado4 import gen
+from tornado4.httputil import url_concat
+from tornado4.log import gen_log
+from tornado4.testing import AsyncHTTPTestCase, ExpectLog
+from tornado4.web import RequestHandler, Application, asynchronous, HTTPError
 
 
 class OpenIdClientLoginHandler(RequestHandler, OpenIdMixin):

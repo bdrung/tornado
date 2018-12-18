@@ -5,9 +5,9 @@ import datetime
 import os
 import sys
 
-from tornado.options import OptionParser, Error
-from tornado.util import basestring_type, PY3
-from tornado.test.util import unittest, subTest
+from tornado4.options import OptionParser, Error
+from tornado4.util import basestring_type, PY3
+from tornado4.test.util import unittest, subTest
 
 if PY3:
     from io import StringIO

@@ -11,13 +11,13 @@ import threading
 import time
 import types
 
-from tornado import gen
-from tornado.ioloop import IOLoop, TimeoutError, PollIOLoop, PeriodicCallback
-from tornado.log import app_log
-from tornado.platform.select import _Select
-from tornado.stack_context import ExceptionStackContext, StackContext, wrap, NullContext
-from tornado.testing import AsyncTestCase, bind_unused_port, ExpectLog
-from tornado.test.util import unittest, skipIfNonUnix, skipOnTravis, skipBefore35, exec_test
+from tornado4 import gen
+from tornado4.ioloop import IOLoop, TimeoutError, PollIOLoop, PeriodicCallback
+from tornado4.log import app_log
+from tornado4.platform.select import _Select
+from tornado4.stack_context import ExceptionStackContext, StackContext, wrap, NullContext
+from tornado4.testing import AsyncTestCase, bind_unused_port, ExpectLog
+from tornado4.test.util import unittest, skipIfNonUnix, skipOnTravis, skipBefore35, exec_test
 
 try:
     from concurrent import futures

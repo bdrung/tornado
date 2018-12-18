@@ -44,11 +44,11 @@ import time
 import traceback
 import math
 
-from tornado.concurrent import TracebackFuture, is_future
-from tornado.log import app_log, gen_log
-from tornado.platform.auto import set_close_exec, Waker
-from tornado import stack_context
-from tornado.util import PY3, Configurable, errno_from_exception, timedelta_to_seconds
+from tornado4.concurrent import TracebackFuture, is_future
+from tornado4.log import app_log, gen_log
+from tornado4.platform.auto import set_close_exec, Waker
+from tornado4 import stack_context
+from tornado4.util import PY3, Configurable, errno_from_exception, timedelta_to_seconds
 
 try:
     import signal
@@ -84,7 +84,7 @@ class IOLoop(Configurable):
 
         import errno
         import functools
-        import tornado.ioloop
+        import tornado4.ioloop
         import socket
 
         def connection_ready(sock, fd, events):
@@ -105,7 +105,7 @@ class IOLoop(Configurable):
             sock.bind(("", port))
             sock.listen(128)
 
-            io_loop = tornado.ioloop.IOLoop.current()
+            io_loop = tornado4.ioloop.IOLoop.current()
             callback = functools.partial(connection_ready, sock)
             io_loop.add_handler(sock.fileno(), callback, io_loop.READ)
             io_loop.start()
@@ -176,7 +176,7 @@ class IOLoop(Configurable):
 
         When using an `IOLoop` subclass, `install` must be called prior
         to creating any objects that implicitly create their own
-        `IOLoop` (e.g., :class:`tornado.httpclient.AsyncHTTPClient`).
+        `IOLoop` (e.g., :class:`tornado4.httpclient.AsyncHTTPClient`).
         """
         assert not IOLoop.initialized()
         IOLoop._instance = self
@@ -240,13 +240,13 @@ class IOLoop(Configurable):
     @classmethod
     def configurable_default(cls):
         if hasattr(select, "epoll"):
-            from tornado.platform.epoll import EPollIOLoop
+            from tornado4.platform.epoll import EPollIOLoop
             return EPollIOLoop
         if hasattr(select, "kqueue"):
             # Python 2.6+ on BSD or Mac
-            from tornado.platform.kqueue import KQueueIOLoop
+            from tornado4.platform.kqueue import KQueueIOLoop
             return KQueueIOLoop
-        from tornado.platform.select import SelectIOLoop
+        from tornado4.platform.select import SelectIOLoop
         return SelectIOLoop
 
     def initialize(self, make_current=None):
@@ -375,7 +375,7 @@ class IOLoop(Configurable):
         """
         if not any([logging.getLogger().handlers,
                     logging.getLogger('tornado').handlers,
-                    logging.getLogger('tornado.application').handlers]):
+                    logging.getLogger('tornado4.application').handlers]):
             logging.basicConfig()
 
     def stop(self):
@@ -416,7 +416,7 @@ class IOLoop(Configurable):
         a maximum duration for the function.  If the timeout expires,
         a `TimeoutError` is raised.
 
-        This method is useful in conjunction with `tornado.gen.coroutine`
+        This method is useful in conjunction with `tornado4.gen.coroutine`
         to allow asynchronous calls in a ``main()`` function::
 
             @gen.coroutine
@@ -435,7 +435,7 @@ class IOLoop(Configurable):
             try:
                 result = func()
                 if result is not None:
-                    from tornado.gen import convert_yielded
+                    from tornado4.gen import convert_yielded
                     result = convert_yielded(result)
             except Exception:
                 future_cell[0] = TracebackFuture()
@@ -604,7 +604,7 @@ class IOLoop(Configurable):
         try:
             ret = callback()
             if ret is not None:
-                from tornado import gen
+                from tornado4 import gen
                 # Functions that return Futures typically swallow all
                 # exceptions and store them in the Future.  If a Future
                 # makes it out to the IOLoop, ensure its exception (if any)
@@ -682,9 +682,9 @@ class IOLoop(Configurable):
 class PollIOLoop(IOLoop):
     """Base class for IOLoops built around a select-like function.
 
-    For concrete implementations, see `tornado.platform.epoll.EPollIOLoop`
-    (Linux), `tornado.platform.kqueue.KQueueIOLoop` (BSD and Mac), or
-    `tornado.platform.select.SelectIOLoop` (all platforms).
+    For concrete implementations, see `tornado4.platform.epoll.EPollIOLoop`
+    (Linux), `tornado4.platform.kqueue.KQueueIOLoop` (BSD and Mac), or
+    `tornado4.platform.select.SelectIOLoop` (all platforms).
     """
     def initialize(self, impl, time_func=None, **kwargs):
         super(PollIOLoop, self).initialize(**kwargs)

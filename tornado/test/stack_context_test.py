@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 from __future__ import absolute_import, division, print_function
 
-from tornado import gen
-from tornado.log import app_log
-from tornado.stack_context import (StackContext, wrap, NullContext, StackContextInconsistentError,
+from tornado4 import gen
+from tornado4.log import app_log
+from tornado4.stack_context import (StackContext, wrap, NullContext, StackContextInconsistentError,
                                    ExceptionStackContext, run_with_stack_context, _state)
-from tornado.testing import AsyncHTTPTestCase, AsyncTestCase, ExpectLog, gen_test
-from tornado.test.util import unittest
-from tornado.web import asynchronous, Application, RequestHandler
+from tornado4.testing import AsyncHTTPTestCase, AsyncTestCase, ExpectLog, gen_test
+from tornado4.test.util import unittest
+from tornado4.web import asynchronous, Application, RequestHandler
 import contextlib
 import functools
 import logging

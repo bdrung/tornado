@@ -113,8 +113,8 @@ if (platform.python_implementation() == 'CPython' and
     # This extension builds and works on pypy as well, although pypy's jit
     # produces equivalent performance.
     kwargs['ext_modules'] = [
-        Extension('tornado.speedups',
-                  sources=['tornado/speedups.c']),
+        Extension('tornado4.speedups',
+                  sources=['tornado4/speedups.c']),
     ]
 
     if os.environ.get('TORNADO_EXTENSION') != '1':
@@ -142,14 +142,14 @@ if setuptools is not None:
     kwargs['install_requires'] = install_requires
 
 setup(
-    name="tornado",
+    name="tornado4",
     version=version,
-    packages=["tornado", "tornado.test", "tornado.platform"],
+    packages=["tornado4", "tornado4.test", "tornado4.platform"],
     package_data={
         # data files need to be listed both here (which determines what gets
         # installed) and in MANIFEST.in (which determines what gets included
         # in the sdist tarball)
-        "tornado.test": [
+        "tornado4.test": [
             "README",
             "csv_translations/fr_FR.csv",
             "gettext_translations/fr_FR/LC_MESSAGES/tornado_test.mo",

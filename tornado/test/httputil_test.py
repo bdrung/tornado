@@ -3,11 +3,11 @@
 
 
 from __future__ import absolute_import, division, print_function
-from tornado.httputil import url_concat, parse_multipart_form_data, HTTPHeaders, format_timestamp, HTTPServerRequest, parse_request_start_line, parse_cookie
-from tornado.escape import utf8, native_str
-from tornado.log import gen_log
-from tornado.testing import ExpectLog
-from tornado.test.util import unittest
+from tornado4.httputil import url_concat, parse_multipart_form_data, HTTPHeaders, format_timestamp, HTTPServerRequest, parse_request_start_line, parse_cookie
+from tornado4.escape import utf8, native_str
+from tornado4.log import gen_log
+from tornado4.testing import ExpectLog
+from tornado4.test.util import unittest
 
 import copy
 import datetime

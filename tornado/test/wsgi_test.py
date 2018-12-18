@@ -1,14 +1,14 @@
 from __future__ import absolute_import, division, print_function
 from wsgiref.validate import validator
 
-from tornado.escape import json_decode
-from tornado.test.httpserver_test import TypeCheckHandler
-from tornado.testing import AsyncHTTPTestCase
-from tornado.web import RequestHandler, Application
-from tornado.wsgi import WSGIApplication, WSGIContainer, WSGIAdapter
+from tornado4.escape import json_decode
+from tornado4.test.httpserver_test import TypeCheckHandler
+from tornado4.testing import AsyncHTTPTestCase
+from tornado4.web import RequestHandler, Application
+from tornado4.wsgi import WSGIApplication, WSGIContainer, WSGIAdapter
 
-from tornado.test import httpserver_test
-from tornado.test import web_test
+from tornado4.test import httpserver_test
+from tornado4.test import web_test
 
 
 class WSGIContainerTest(AsyncHTTPTestCase):

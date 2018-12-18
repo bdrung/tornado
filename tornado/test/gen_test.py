@@ -9,17 +9,17 @@ import textwrap
 import time
 import weakref
 
-from tornado.concurrent import return_future, Future
-from tornado.escape import url_escape
-from tornado.httpclient import AsyncHTTPClient
-from tornado.ioloop import IOLoop
-from tornado.log import app_log
-from tornado import stack_context
-from tornado.testing import AsyncHTTPTestCase, AsyncTestCase, ExpectLog, gen_test
-from tornado.test.util import unittest, skipOnTravis, skipBefore33, skipBefore35, skipNotCPython, exec_test
-from tornado.web import Application, RequestHandler, asynchronous, HTTPError
+from tornado4.concurrent import return_future, Future
+from tornado4.escape import url_escape
+from tornado4.httpclient import AsyncHTTPClient
+from tornado4.ioloop import IOLoop
+from tornado4.log import app_log
+from tornado4 import stack_context
+from tornado4.testing import AsyncHTTPTestCase, AsyncTestCase, ExpectLog, gen_test
+from tornado4.test.util import unittest, skipOnTravis, skipBefore33, skipBefore35, skipNotCPython, exec_test
+from tornado4.web import Application, RequestHandler, asynchronous, HTTPError
 
-from tornado import gen
+from tornado4 import gen
 
 try:
     from concurrent import futures

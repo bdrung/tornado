@@ -22,10 +22,10 @@ loops.
 from __future__ import absolute_import, division, print_function
 import functools
 
-import tornado.concurrent
-from tornado.gen import convert_yielded
-from tornado.ioloop import IOLoop
-from tornado import stack_context
+import tornado4.concurrent
+from tornado4.gen import convert_yielded
+from tornado4.ioloop import IOLoop
+from tornado4 import stack_context
 
 try:
     # Import the real asyncio module for py33+ first.  Older versions of the
@@ -156,12 +156,12 @@ class AsyncIOMainLoop(BaseAsyncIOLoop):
     current ``asyncio`` event loop (i.e. the one returned by
     ``asyncio.get_event_loop()``).  Recommended usage::
 
-        from tornado.platform.asyncio import AsyncIOMainLoop
+        from tornado4.platform.asyncio import AsyncIOMainLoop
         import asyncio
         AsyncIOMainLoop().install()
         asyncio.get_event_loop().run_forever()
 
-    See also :meth:`tornado.ioloop.IOLoop.install` for general notes on
+    See also :meth:`tornado4.ioloop.IOLoop.install` for general notes on
     installing alternative IOLoops.
     """
     def initialize(self, **kwargs):
@@ -175,8 +175,8 @@ class AsyncIOLoop(BaseAsyncIOLoop):
     ``IOLoops``; these loops are not necessarily related to the
     ``asyncio`` default event loop.  Recommended usage::
 
-        from tornado.ioloop import IOLoop
-        IOLoop.configure('tornado.platform.asyncio.AsyncIOLoop')
+        from tornado4.ioloop import IOLoop
+        IOLoop.configure('tornado4.platform.asyncio.AsyncIOLoop')
         IOLoop.current().start()
 
     Each ``AsyncIOLoop`` creates a new ``asyncio.EventLoop``; this object
@@ -194,12 +194,12 @@ class AsyncIOLoop(BaseAsyncIOLoop):
 
 
 def to_tornado_future(asyncio_future):
-    """Convert an `asyncio.Future` to a `tornado.concurrent.Future`.
+    """Convert an `asyncio.Future` to a `tornado4.concurrent.Future`.
 
     .. versionadded:: 4.1
     """
-    tf = tornado.concurrent.Future()
-    tornado.concurrent.chain_future(asyncio_future, tf)
+    tf = tornado4.concurrent.Future()
+    tornado4.concurrent.chain_future(asyncio_future, tf)
     return tf
 
 
@@ -210,11 +210,11 @@ def to_asyncio_future(tornado_future):
 
     .. versionchanged:: 4.3
        Now accepts any yieldable object, not just
-       `tornado.concurrent.Future`.
+       `tornado4.concurrent.Future`.
     """
     tornado_future = convert_yielded(tornado_future)
     af = asyncio.Future()
-    tornado.concurrent.chain_future(tornado_future, af)
+    tornado4.concurrent.chain_future(tornado_future, af)
     return af
 
 

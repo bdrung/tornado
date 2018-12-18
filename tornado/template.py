@@ -82,7 +82,7 @@ We provide the functions `escape() <.xhtml_escape>`, `.url_escape()`,
 Typical applications do not create `Template` or `Loader` instances by
 hand, but instead use the `~.RequestHandler.render` and
 `~.RequestHandler.render_string` methods of
-`tornado.web.RequestHandler`, which load templates automatically based
+`tornado4.web.RequestHandler`, which load templates automatically based
 on the ``template_path`` `.Application` setting.
 
 Variable names beginning with ``_tt_`` are reserved by the template
@@ -168,12 +168,12 @@ if you need to include a literal ``{{``, ``{%``, or ``{#`` in the output.
     to include another template with an isolated namespace.
 
 ``{% module *expr* %}``
-    Renders a `~tornado.web.UIModule`.  The output of the ``UIModule`` is
+    Renders a `~tornado4.web.UIModule`.  The output of the ``UIModule`` is
     not escaped::
 
         {% module Template("foo.html", arg=42) %}
 
-    ``UIModules`` are a feature of the `tornado.web.RequestHandler`
+    ``UIModules`` are a feature of the `tornado4.web.RequestHandler`
     class (and specifically its ``render`` method) and will not work
     when the template system is used on its own in other contexts.
 
@@ -205,9 +205,9 @@ import posixpath
 import re
 import threading
 
-from tornado import escape
-from tornado.log import app_log
-from tornado.util import ObjectDict, exec_in, unicode_type, PY3
+from tornado4 import escape
+from tornado4.log import app_log
+from tornado4.util import ObjectDict, exec_in, unicode_type, PY3
 
 if PY3:
     from io import StringIO
@@ -260,7 +260,7 @@ class Template(object):
         :arg str template_string: the contents of the template file.
         :arg str name: the filename from which the template was loaded
             (used for error message).
-        :arg tornado.template.BaseLoader loader: the `~tornado.template.BaseLoader` responsible for this template,
+        :arg tornado4.template.BaseLoader loader: the `~tornado4.template.BaseLoader` responsible for this template,
             used to resolve ``{% include %}`` and ``{% extend %}``
             directives.
         :arg bool compress_whitespace: Deprecated since Tornado 4.3.

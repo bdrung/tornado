@@ -7,19 +7,19 @@
 * `ExpectLog` and `LogTrapTestCase`: Make test logs less spammy.
 
 * `main()`: A simple test runner (wrapper around unittest.main()) with support
-  for the tornado.autoreload module to rerun the tests when code changes.
+  for the tornado4.autoreload module to rerun the tests when code changes.
 """
 
 from __future__ import absolute_import, division, print_function
 
 try:
-    from tornado import gen
-    from tornado.httpclient import AsyncHTTPClient
-    from tornado.httpserver import HTTPServer
-    from tornado.simple_httpclient import SimpleAsyncHTTPClient
-    from tornado.ioloop import IOLoop, TimeoutError
-    from tornado import netutil
-    from tornado.process import Subprocess
+    from tornado4 import gen
+    from tornado4.httpclient import AsyncHTTPClient
+    from tornado4.httpserver import HTTPServer
+    from tornado4.simple_httpclient import SimpleAsyncHTTPClient
+    from tornado4.ioloop import IOLoop, TimeoutError
+    from tornado4 import netutil
+    from tornado4.process import Subprocess
 except ImportError:
     # These modules are not importable on app engine.  Parts of this module
     # won't work, but e.g. LogTrapTestCase and main() will.
@@ -30,9 +30,9 @@ except ImportError:
     netutil = None  # type: ignore
     SimpleAsyncHTTPClient = None  # type: ignore
     Subprocess = None  # type: ignore
-from tornado.log import gen_log, app_log
-from tornado.stack_context import ExceptionStackContext
-from tornado.util import raise_exc_info, basestring_type, PY3
+from tornado4.log import gen_log, app_log
+from tornado4.stack_context import ExceptionStackContext
+from tornado4.util import raise_exc_info, basestring_type, PY3
 import functools
 import inspect
 import logging
@@ -59,8 +59,8 @@ else:
     iscoroutine = iscoroutinefunction = lambda f: False
 
 # Tornado's own test suite requires the updated unittest module
-# (either py27+ or unittest2) so tornado.test.util enforces
-# this requirement, but for other users of tornado.testing we want
+# (either py27+ or unittest2) so tornado4.test.util enforces
+# this requirement, but for other users of tornado4.testing we want
 # to allow the older version if unitest2 is not available.
 if PY3:
     # On python 3, mixing unittest2 and unittest (including doctest)
@@ -136,7 +136,7 @@ class _TestMethodWrapper(object):
         result = self.orig_method(*args, **kwargs)
         if isinstance(result, GeneratorType) or iscoroutine(result):
             raise TypeError("Generator and coroutine test methods should be"
-                            " decorated with tornado.testing.gen_test")
+                            " decorated with tornado4.testing.gen_test")
         elif result is not None:
             raise ValueError("Return value from test method ignored: %r" %
                              result)
@@ -158,9 +158,9 @@ class AsyncTestCase(unittest.TestCase):
     complete by the time the test method returns.  This means that
     asynchronous code cannot be used in quite the same way as usual.
     To write test functions that use the same ``yield``-based patterns
-    used with the `tornado.gen` module, decorate your test methods
-    with `tornado.testing.gen_test` instead of
-    `tornado.gen.coroutine`.  This class also provides the `stop()`
+    used with the `tornado4.gen` module, decorate your test methods
+    with `tornado4.testing.gen_test` instead of
+    `tornado4.gen.coroutine`.  This class also provides the `stop()`
     and `wait()` methods for a more manual style of testing.  The test
     method itself must call ``self.wait()``, and asynchronous
     callbacks should call ``self.stop()`` to signal completion.
@@ -180,7 +180,7 @@ class AsyncTestCase(unittest.TestCase):
 
         # This test uses coroutine style.
         class MyTestCase(AsyncTestCase):
-            @tornado.testing.gen_test
+            @tornado4.testing.gen_test
             def test_http_fetch(self):
                 client = AsyncHTTPClient(self.io_loop)
                 response = yield client.fetch("http://www.tornadoweb.org")
@@ -343,7 +343,7 @@ class AsyncHTTPTestCase(AsyncTestCase):
     """A test case that starts up an HTTP server.
 
     Subclasses must override `get_app()`, which returns the
-    `tornado.web.Application` (or other `.HTTPServer` callback) to be tested.
+    `tornado4.web.Application` (or other `.HTTPServer` callback) to be tested.
     Tests will typically use the provided ``self.http_client`` to fetch
     URLs from this server.
 
@@ -390,7 +390,7 @@ class AsyncHTTPTestCase(AsyncTestCase):
 
     def get_app(self):
         """Should be overridden by subclasses to return a
-        `tornado.web.Application` or other `.HTTPServer` callback.
+        `tornado4.web.Application` or other `.HTTPServer` callback.
         """
         raise NotImplementedError()
 
@@ -567,7 +567,7 @@ class LogTrapTestCase(unittest.TestCase):
     This class assumes that only one log handler is configured and
     that it is a `~logging.StreamHandler`.  This is true for both
     `logging.basicConfig` and the "pretty logging" configured by
-    `tornado.options`.  It is not compatible with other log buffering
+    `tornado4.options`.  It is not compatible with other log buffering
     mechanisms, such as those provided by some test runners.
 
     .. deprecated:: 4.1
@@ -608,7 +608,7 @@ class ExpectLog(logging.Filter):
 
     Usage::
 
-        with ExpectLog('tornado.application', "Uncaught exception"):
+        with ExpectLog('tornado4.application', "Uncaught exception"):
             error_response = self.fetch("/some_page")
 
     .. versionchanged:: 4.3
@@ -662,7 +662,7 @@ def main(**kwargs):
 
     The easiest way to run a test is via the command line::
 
-        python -m tornado.testing tornado.test.stack_context_test
+        python -m tornado4.testing tornado4.test.stack_context_test
 
     See the standard library unittest module for ways in which tests can
     be specified.
@@ -670,22 +670,22 @@ def main(**kwargs):
     Projects with many tests may wish to define a test script like
     ``tornado/test/runtests.py``.  This script should define a method
     ``all()`` which returns a test suite and then call
-    `tornado.testing.main()`.  Note that even when a test script is
+    `tornado4.testing.main()`.  Note that even when a test script is
     used, the ``all()`` test suite may be overridden by naming a
     single test on the command line::
 
         # Runs all tests
-        python -m tornado.test.runtests
+        python -m tornado4.test.runtests
         # Runs one test
-        python -m tornado.test.runtests tornado.test.stack_context_test
+        python -m tornado4.test.runtests tornado4.test.stack_context_test
 
     Additional keyword arguments passed through to ``unittest.main()``.
-    For example, use ``tornado.testing.main(verbosity=2)``
+    For example, use ``tornado4.testing.main(verbosity=2)``
     to show many test details as they are run.
     See http://docs.python.org/library/unittest.html#unittest.main
     for full argument list.
     """
-    from tornado.options import define, options, parse_command_line
+    from tornado4.options import define, options, parse_command_line
 
     define('exception_on_interrupt', type=bool, default=True,
            help=("If true (default), ctrl-c raises a KeyboardInterrupt "

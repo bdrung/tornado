@@ -13,11 +13,11 @@
 
 from __future__ import absolute_import, division, print_function
 
-from tornado.httputil import HTTPHeaders, HTTPMessageDelegate, HTTPServerConnectionDelegate, ResponseStartLine
-from tornado.routing import HostMatches, PathMatches, ReversibleRouter, Router, Rule, RuleRouter
-from tornado.testing import AsyncHTTPTestCase
-from tornado.web import Application, HTTPError, RequestHandler
-from tornado.wsgi import WSGIContainer
+from tornado4.httputil import HTTPHeaders, HTTPMessageDelegate, HTTPServerConnectionDelegate, ResponseStartLine
+from tornado4.routing import HostMatches, PathMatches, ReversibleRouter, Router, Rule, RuleRouter
+from tornado4.testing import AsyncHTTPTestCase
+from tornado4.web import Application, HTTPError, RequestHandler
+from tornado4.wsgi import WSGIContainer
 
 
 class BasicRouter(Router):
@@ -174,7 +174,7 @@ class RuleRouterTest(AsyncHTTPTestCase):
 
         app.add_handlers(".*", [
             (HostMatches("www.example.com"), [
-                (PathMatches("/first_handler"), "tornado.test.routing_test.SecondHandler", {}, "second_handler")
+                (PathMatches("/first_handler"), "tornado4.test.routing_test.SecondHandler", {}, "second_handler")
             ]),
             Rule(PathMatches("/first_handler"), FirstHandler, name="first_handler"),
             Rule(PathMatches("/request_callable"), request_callable),
@@ -205,10 +205,10 @@ class WSGIContainerTestCase(AsyncHTTPTestCase):
 
         class Handler(RequestHandler):
             def get(self, *args, **kwargs):
-                self.finish(self.reverse_url("tornado"))
+                self.finish(self.reverse_url("tornado4"))
 
         return RuleRouter([
-            (PathMatches("/tornado.*"), Application([(r"/tornado/test", Handler, {}, "tornado")])),
+            (PathMatches("/tornado4.*"), Application([(r"/tornado4/test", Handler, {}, "tornado4")])),
             (PathMatches("/wsgi"), wsgi_app),
         ])
 
@@ -217,8 +217,8 @@ class WSGIContainerTestCase(AsyncHTTPTestCase):
         return [b"WSGI"]
 
     def test_wsgi_container(self):
-        response = self.fetch("/tornado/test")
-        self.assertEqual(response.body, b"/tornado/test")
+        response = self.fetch("/tornado4/test")
+        self.assertEqual(response.body, b"/tornado4/test")
 
         response = self.fetch("/wsgi")
         self.assertEqual(response.body, b"WSGI")

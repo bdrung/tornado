@@ -22,15 +22,15 @@ import socket
 import sys
 import traceback
 
-from tornado.concurrent import Future, return_future, ReturnValueIgnoredError, run_on_executor
-from tornado.escape import utf8, to_unicode
-from tornado import gen
-from tornado.iostream import IOStream
-from tornado.log import app_log
-from tornado import stack_context
-from tornado.tcpserver import TCPServer
-from tornado.testing import AsyncTestCase, ExpectLog, LogTrapTestCase, bind_unused_port, gen_test
-from tornado.test.util import unittest
+from tornado4.concurrent import Future, return_future, ReturnValueIgnoredError, run_on_executor
+from tornado4.escape import utf8, to_unicode
+from tornado4 import gen
+from tornado4.iostream import IOStream
+from tornado4.log import app_log
+from tornado4 import stack_context
+from tornado4.tcpserver import TCPServer
+from tornado4.testing import AsyncTestCase, ExpectLog, LogTrapTestCase, bind_unused_port, gen_test
+from tornado4.test.util import unittest
 
 
 try:

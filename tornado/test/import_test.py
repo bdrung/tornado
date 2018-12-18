@@ -1,6 +1,6 @@
 # flake8: noqa
 from __future__ import absolute_import, division, print_function
-from tornado.test.util import unittest
+from tornado4.test.util import unittest
 
 
 class ImportTest(unittest.TestCase):
@@ -8,32 +8,32 @@ class ImportTest(unittest.TestCase):
         # Some of our modules are not otherwise tested.  Import them
         # all (unless they have external dependencies) here to at
         # least ensure that there are no syntax errors.
-        import tornado.auth
-        import tornado.autoreload
-        import tornado.concurrent
-        import tornado.escape
-        import tornado.gen
-        import tornado.http1connection
-        import tornado.httpclient
-        import tornado.httpserver
-        import tornado.httputil
-        import tornado.ioloop
-        import tornado.iostream
-        import tornado.locale
-        import tornado.log
-        import tornado.netutil
-        import tornado.options
-        import tornado.process
-        import tornado.simple_httpclient
-        import tornado.stack_context
-        import tornado.tcpserver
-        import tornado.tcpclient
-        import tornado.template
-        import tornado.testing
-        import tornado.util
-        import tornado.web
-        import tornado.websocket
-        import tornado.wsgi
+        import tornado4.auth
+        import tornado4.autoreload
+        import tornado4.concurrent
+        import tornado4.escape
+        import tornado4.gen
+        import tornado4.http1connection
+        import tornado4.httpclient
+        import tornado4.httpserver
+        import tornado4.httputil
+        import tornado4.ioloop
+        import tornado4.iostream
+        import tornado4.locale
+        import tornado4.log
+        import tornado4.netutil
+        import tornado4.options
+        import tornado4.process
+        import tornado4.simple_httpclient
+        import tornado4.stack_context
+        import tornado4.tcpserver
+        import tornado4.tcpclient
+        import tornado4.template
+        import tornado4.testing
+        import tornado4.util
+        import tornado4.web
+        import tornado4.websocket
+        import tornado4.wsgi
 
     # for modules with dependencies, if those dependencies can be loaded,
     # load them too.
@@ -44,4 +44,4 @@ class ImportTest(unittest.TestCase):
         except ImportError:
             pass
         else:
-            import tornado.curl_httpclient
+            import tornado4.curl_httpclient

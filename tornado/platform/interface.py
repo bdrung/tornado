@@ -17,8 +17,8 @@
 """Interfaces for platform-specific functionality.
 
 This module exists primarily for documentation purposes and as base classes
-for other tornado.platform modules.  Most code should import the appropriate
-implementation from `tornado.platform.auto`.
+for other tornado4.platform modules.  Most code should import the appropriate
+implementation from `tornado4.platform.auto`.
 """
 
 from __future__ import absolute_import, division, print_function
@@ -32,7 +32,7 @@ def set_close_exec(fd):
 class Waker(object):
     """A socket-like object that can wake another thread from ``select()``.
 
-    The `~tornado.ioloop.IOLoop` will add the Waker's `fileno()` to
+    The `~tornado4.ioloop.IOLoop` will add the Waker's `fileno()` to
     its ``select`` (or ``epoll`` or ``kqueue``) calls.  When another
     thread wants to wake up the loop, it calls `wake`.  Once it has woken
     up, it will call `consume` to do any necessary per-wake cleanup.  When

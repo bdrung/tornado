@@ -12,19 +12,19 @@ import threading
 import datetime
 from io import BytesIO
 
-from tornado.escape import utf8, native_str
-from tornado import gen
-from tornado.httpclient import HTTPRequest, HTTPResponse, _RequestProxy, HTTPError, HTTPClient
-from tornado.httpserver import HTTPServer
-from tornado.ioloop import IOLoop
-from tornado.iostream import IOStream
-from tornado.log import gen_log
-from tornado import netutil
-from tornado.stack_context import ExceptionStackContext, NullContext
-from tornado.testing import AsyncHTTPTestCase, bind_unused_port, gen_test, ExpectLog
-from tornado.test.util import unittest, skipOnTravis
-from tornado.web import Application, RequestHandler, url
-from tornado.httputil import format_timestamp, HTTPHeaders
+from tornado4.escape import utf8, native_str
+from tornado4 import gen
+from tornado4.httpclient import HTTPRequest, HTTPResponse, _RequestProxy, HTTPError, HTTPClient
+from tornado4.httpserver import HTTPServer
+from tornado4.ioloop import IOLoop
+from tornado4.iostream import IOStream
+from tornado4.log import gen_log
+from tornado4 import netutil
+from tornado4.stack_context import ExceptionStackContext, NullContext
+from tornado4.testing import AsyncHTTPTestCase, bind_unused_port, gen_test, ExpectLog
+from tornado4.test.util import unittest, skipOnTravis
+from tornado4.web import Application, RequestHandler, url
+from tornado4.httputil import format_timestamp, HTTPHeaders
 
 
 class HelloWorldHandler(RequestHandler):
